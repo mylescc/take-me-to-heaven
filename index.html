@@ -1,0 +1,47 @@
+<html>
+<head>
+  <title>Take me to heaven - London</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header class="row">
+      <h1>QUICK</h1>
+    </header>
+    <div id='splash'>
+      <button class="btn btn-primary" onclick="heaven.swapToNextView('location-prompt', 'splash');">
+        Take me now
+      </button>
+    </div>
+    <div id='location-prompt' class="hidden">
+      <p>We need to know you're current location to find it for you</p>
+      <p><small>no worries, we are not working for the man</small></p>
+      <button class="btn btn-primary" onclick="heaven.getGeoLocation();">
+        Use my geolocation
+      </button>
+      <p id='location-permission-protip' class='hidden'><b>
+        Remember to give us permission to use your location
+      </b></p>
+      </br>
+      <button class="btn btn-primary" onclick="heaven.swapToNextView('postcode-prompt', 'location-prompt');">
+        Enter My current postcode
+      </button>
+    </div>
+    <div id='postcode-prompt' class="hidden">
+      <form onsubmit="heaven.getLocationFromPostCode(event);" class="form-inline">
+        <div class='form-group'>
+          <input type='text' class="form-control" />
+        </div>
+        <input type='submit' class="btn btn-primary" />
+      </form>
+    </div>
+    <div id='result' class='hidden'>
+      <h1>Result</h1>
+      <p>maybe some sort of loading thing here.. and then just list the API result</p>
+    </div>
+  </div>
+</body>
+</html>
