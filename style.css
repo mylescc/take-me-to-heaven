@@ -7,6 +7,16 @@ body {
   font-size: 2rem;
 }
 
+a {
+  color: #0BB4CA;
+}
+
+a:hover {
+  cursor: pointer;
+  color: #0BB4CA;
+  text-decoration: none;
+}
+
 .vertical-spacing {
   height: 2vh;
 }
@@ -17,6 +27,10 @@ body {
   color: #FFF;
   padding: 2rem;
   font-size: 4rem;
+}
+
+.btn-spoons:hover {
+  color: #FFF;
 }
 
 .centralizr-io {
