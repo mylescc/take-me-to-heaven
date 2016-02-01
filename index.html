@@ -12,7 +12,7 @@
 <body ng-app="spoons">
   <div class="container" ng-controller="HeavenController as ctrl">
     <div ng-show='ctrl.currentView === ctrl.views[0]' class="row centralizr-io">
-      <button class="btn btn-primary col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1" ng-click="ctrl.queryGeoLocation()">
+      <button class="btn btn-spoons col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1" ng-click="ctrl.queryGeoLocation()">
         Take me now
       </button>
     </div>
@@ -22,7 +22,7 @@
         <p><small>no worries, we are not working for the man</small></p>
         <div class="vertical-spacing"></div>
         <a ng-click='ctrl.nextView(2)' class="">
-          I'm scared and rather enter my current postcode
+          <small>I'd rather enter my current postcode >></small>
         </a>
       </div>
     </div>

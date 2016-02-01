@@ -2,10 +2,21 @@ body {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  background: linear-gradient(135deg, #BBE7E7, #C3FECA);
+  color: #370507;
+  font-size: 2rem;
 }
 
 .vertical-spacing {
   height: 2vh;
+}
+
+.btn-spoons {
+  background: #0BB4CA;
+  border: none;
+  color: #FFF;
+  padding: 2rem;
+  font-size: 4rem;
 }
 
 .centralizr-io {
