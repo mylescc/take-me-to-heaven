@@ -11,36 +11,42 @@
 </head>
 <body ng-app="spoons">
   <div class="container" ng-controller="HeavenController as ctrl">
-    <header class="row text-center">
-      <h1>QUICK</h1>
-    </header>
-    <div ng-show='ctrl.currentView === ctrl.views[0]' class="row text-center">
-      <button class="btn btn-primary" ng-click="ctrl.queryGeoLocation()">
+    <div ng-show='ctrl.currentView === ctrl.views[0]' class="row centralizr-io">
+      <button class="btn btn-primary col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1" ng-click="ctrl.queryGeoLocation()">
         Take me now
       </button>
     </div>
-    <div ng-show='ctrl.currentView === ctrl.views[1]' class="row text-center">
-      <p>We need to know your current location to find it for you</p>
-      <p><small>no worries, we are not working for the man</small></p>
-      <div class="vertical-spacing"></div>
-      <a ng-click='ctrl.nextView(2)' class="">
-        I'm scared and rather enter my current postcode
-      </a>
+    <div ng-show='ctrl.currentView === ctrl.views[1]' class="row centralizr-io">
+      <div class="horizontalify">
+        <p>We need to know your current location to find it for you</p>
+        <p><small>no worries, we are not working for the man</small></p>
+        <div class="vertical-spacing"></div>
+        <a ng-click='ctrl.nextView(2)' class="">
+          I'm scared and rather enter my current postcode
+        </a>
+      </div>
     </div>
-    <div ng-show='ctrl.currentView === ctrl.views[2]' class="row text-center">
-      <form ng-submit='ctrl.getLocationFromPostCode()' class="form-inline">
-        <div class='form-group'>
-          <input type='text' class="form-control" placeholder='Enter your current postcode' />
-        </div>
-        <input type='submit' class="btn btn-primary" />
-      </form>
+    <div ng-show='ctrl.currentView === ctrl.views[2]' class="row centralizr-io">
+      <div class="horizontalify">
+        <form ng-submit='ctrl.getLocationFromPostCode()' class="form-inline">
+          <div class='form-group'>
+            <input  type='text'
+                    class="form-control"
+                    placeholder='Postcode' />
+          </div>
+          <div class="vertical-spacing"></div>
+          <input type='submit' class="btn btn-primary" />
+        </form>
+      </div>
     </div>
-    <div ng-show='ctrl.currentView === ctrl.views[3]'>
-      Calculating..
+    <div ng-show='ctrl.currentView === ctrl.views[3]' class="row centralizr-io">
+      <p class="horizontalify">Calculating..</p>
     </div>
-    <div ng-show='ctrl.currentView === ctrl.views[4]' class='row text-center'>
-      <h1>Result</h1>
-      <p>maybe some sort of loading thing here.. and then just list the API result</p>
+    <div ng-show='ctrl.currentView === ctrl.views[4]' class='row centralizr-io'>
+      <div class="horizontalify">
+        <h1>Result</h1>
+        <p>maybe some sort of loading thing here.. and then just list the API result</p>
+      </div>
     </div>
   </div>
 </body>
