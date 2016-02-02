@@ -18,7 +18,8 @@
     </div>
     <div ng-show='ctrl.currentView === ctrl.views[1]' class="row centralizr-io">
       <div class="horizontalify">
-        <p>We need to know your current location to find it for you</p>
+        <p>Finding current location...<p>
+        <p>(please give us your geolocation, so we can find heaven for you)<p>
       </div>
     </div>
     <div ng-show='ctrl.currentView === ctrl.views[2]' class="row centralizr-io">
@@ -26,8 +27,12 @@
     </div>
     <div ng-show='ctrl.currentView === ctrl.views[3]' class='row centralizr-io'>
       <div class="horizontalify">
-        <h1>Result</h1>
-        <p>maybe some sort of loading thing here.. and then just list the API result</p>
+        <h1>Route to Heaven</h1>
+          <ol>
+          	<li ng-repeat='step in ctrl.spoonsRoute'>
+              {{step.instructions}}
+            </li>
+          </ol>
       </div>
     </div>
     <div id="places"></div>

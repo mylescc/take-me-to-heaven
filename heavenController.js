@@ -1,11 +1,12 @@
 (function() {
   'use strict';
 
-  function HeavenController($timeout) {
+  function HeavenController($timeout, $scope) {
     this.views = ['splash', 'geoquery', 'loadingAPI', 'result'];
     this.currentViewIndex = 0;
     this.currentView = this.views[this.currentViewIndex];
     this.soundEnabled = false;
+    this.spoonsName = 'Wetherspoons';
     var directionService, placesService;
     var lol;
 
@@ -26,10 +27,13 @@
         console.log(position.coords.latitude, position.coords.longitude);
         var origin = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         this.queryPlacesAPI(origin);
+        //this.handleRoutingCallback(lol, true);
       }.bind(this));
     };
 
     this.queryPlacesAPI = function(origin) {
+      this.nextView(2);
+      $scope.$apply();
       if (placesService === undefined) {
         placesService = new google.maps.places.PlacesService(document.getElementById('places'));
       }
@@ -40,6 +44,7 @@
         types: ['bar'],
       };
       placesService.nearbySearch(request, function(results, status) {
+        this.spoonsName = results[0].name;
         console.log(results);
         if (status == google.maps.places.PlacesServiceStatus.OK) {
           this.directionRouting(origin, results[0])
@@ -60,27 +65,52 @@
         provideRouteAlternatives: false,
         region: 'GB'
       }
-      directionService.route(request, function(results, status) {
-        console.log(results);
-        console.log(status);
-      }.bind(this));
+      directionService.route(request, this.handleRoutingCallback);
     }
 
-    this.apiCallback = function(result) {
+    this.handleRoutingCallback = function(results, status) {
+      console.log(results, status);
+      this.spoonsRoute = this.mapRouteToSpoons(results);
+      console.log(this.spoonsRoute);
       this.nextView(3);
+      $scope.$apply();
+    }.bind(this)
+
+    this.mapRouteToSpoons = function(googleResults) {
+      var steps = googleResults.routes[0].legs[0].steps.map(function(step) {
+        switch(step.travel_mode) {
+          case 'WALKING':
+            return {
+              instructions: step.instructions,
+              type: step.travel_mode
+            }
+          case 'TRANSIT':
+            var mode = step.instructions.split(' ')[0].toLowerCase();
+            var shortName = step.transit.line.short_name;
+            var from = step.transit.departure_stop.name;
+            var to = step.transit.arrival_stop.name;
+            return {
+              instructions: 'Take the '+ shortName + ' ' + step.instructions.toLowerCase() + ' from ' + from + '. Get off at ' + to + '.',
+              type: step.travel_mode,
+            }
+        }
+      })
+      steps.push({
+        instructions: 'Step into Heaven (' + this.spoonsName + ')',
+        type: 'WALKING'
+      });
+      return steps;
     }
+
 
     this.nextView = function(viewIndex) {
       this.currentViewIndex = !!viewIndex ? viewIndex : this.currentViewIndex + 1;
       this.currentView = this.views[this.currentViewIndex];
     }
 
-    
-
-    
     init();
   };
 
-  HeavenController.$inject = ['$timeout'];
+  HeavenController.$inject = ['$timeout','$scope'];
   angular.module('spoons').controller('HeavenController', HeavenController);
 })();
