@@ -19,30 +19,12 @@
     <div ng-show='ctrl.currentView === ctrl.views[1]' class="row centralizr-io">
       <div class="horizontalify">
         <p>We need to know your current location to find it for you</p>
-        <p><small>no worries, we are not working for the man</small></p>
-        <div class="vertical-spacing"></div>
-        <a ng-click='ctrl.nextView(2)' class="">
-          <small>I'd rather enter my current postcode >></small>
-        </a>
       </div>
     </div>
     <div ng-show='ctrl.currentView === ctrl.views[2]' class="row centralizr-io">
-      <div class="horizontalify">
-        <form ng-submit='ctrl.getLocationFromPostCode()' class="form-inline">
-          <div class='form-group'>
-            <input  type='text'
-                    class="form-control"
-                    placeholder='Postcode' />
-          </div>
-          <div class="vertical-spacing"></div>
-          <input type='submit' class="btn btn-primary" />
-        </form>
-      </div>
-    </div>
-    <div ng-show='ctrl.currentView === ctrl.views[3]' class="row centralizr-io">
       <p class="horizontalify">Calculating..</p>
     </div>
-    <div ng-show='ctrl.currentView === ctrl.views[4]' class='row centralizr-io'>
+    <div ng-show='ctrl.currentView === ctrl.views[3]' class='row centralizr-io'>
       <div class="horizontalify">
         <h1>Result</h1>
         <p>maybe some sort of loading thing here.. and then just list the API result</p>
