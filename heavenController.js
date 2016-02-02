@@ -32,33 +32,33 @@
       }
       var request = {
         location: origin,
-        radius: '10000',
+        name: 'Wetherspoons',
+        rankBy: google.maps.places.RankBy.DISTANCE,
         types: ['bar'],
-      }
+      };
       placesService.nearbySearch(request, function(results, status) {
         console.log(results);
-        console.log(status);
-      })
-
-      $timeout(this.apiCallback, 3000);
-      this.nextView(2);
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          this.directionRouting(origin, results[0])
+        }
+      }.bind(this))
     };
 
-    this.directionRouting = function(latLng) {
+    this.directionRouting = function(latLng, spoons) {
       if (directionService === undefined) {
         directionService = new google.maps.DirectionsService();
-        var request = {
-          origin: latLng,
-          destination: 'London Wetherspoons',
-          travelMode: google.maps.TravelMode.TRANSIT,
-          provideRouteAlternatives: false,
-          region: 'GB'
-        }
-        directionService.route(request, function(results, status) {
-          console.log(results);
-          console.log(status);
-        });
       }
+      var request = {
+        origin: latLng,
+        destination: spoons,
+        travelMode: google.maps.TravelMode.TRANSIT,
+        provideRouteAlternatives: false,
+        region: 'GB'
+      }
+      directionService.route(request, function(results, status) {
+        console.log(results);
+        console.log(status);
+      });
     }
 
     this.apiCallback = function(result) {
