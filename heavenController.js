@@ -21,12 +21,12 @@
       this.nextView(1);
       navigator.geolocation.getCurrentPosition(function(position) {
         console.log(position.coords.latitude, position.coords.longitude);
-        this.queryAPI(position.coords.latitude, position.coords.longitude, null);
+        var origin = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        this.queryPlacesAPI(origin);
       }.bind(this));
     };
 
-    this.queryAPI = function(lat, lng, postcode) {
-      var origin = new google.maps.LatLng(lat, lng);
+    this.queryPlacesAPI = function(origin) {
       if (placesService === undefined) {
         placesService = new google.maps.places.PlacesService(document.getElementById('places'));
       }
@@ -40,6 +40,8 @@
         console.log(results);
         if (status == google.maps.places.PlacesServiceStatus.OK) {
           this.directionRouting(origin, results[0])
+        } else {
+          console.log('error')
         }
       }.bind(this))
     };
@@ -58,12 +60,12 @@
       directionService.route(request, function(results, status) {
         console.log(results);
         console.log(status);
-      });
+      }.bind(this));
     }
 
     this.apiCallback = function(result) {
       this.nextView(3);
-    }.bind(this);
+    }
 
     this.nextView = function(viewIndex) {
       this.currentViewIndex = !!viewIndex ? viewIndex : this.currentViewIndex + 1;
