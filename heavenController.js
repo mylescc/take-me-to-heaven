@@ -2,7 +2,7 @@
   'use strict';
 
   function HeavenController($timeout) {
-    this.views = ['splash', 'geoquery', 'postcode', 'loadingAPI', 'result'];
+    this.views = ['splash', 'geoquery', 'loadingAPI', 'result'];
     this.currentViewIndex = 0;
     this.currentView = this.views[this.currentViewIndex];
     this.soundEnabled = false;
@@ -26,18 +26,13 @@
     };
 
     this.queryAPI = function(lat, lng, postcode) {
-      this.nextView(3);
+      this.nextView(2);
       $timeout(this.apiCallback, 3000);
     };
 
     this.apiCallback = function(result) {
-      this.nextView(4);
+      this.nextView(3);
     }.bind(this);
-
-    this.getLocationFromPostCode = function() {
-      var zipCode = 'mocklol'
-      this.queryAPI(null, null, zipCode)
-    };
 
     this.nextView = function(viewIndex) {
       this.currentViewIndex = !!viewIndex ? viewIndex : this.currentViewIndex + 1;
