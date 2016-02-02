@@ -33,9 +33,9 @@
       var request = {
         origin: origin,
         destination: 'Wetherspoons',
-        travelMode: google.map.TravelMode.TRANSIT,
+        travelMode: google.maps.TravelMode.TRANSIT,
         provideRouteAlternatives: false,
-        region: GB
+        region: 'GB'
       }
       directionService.route(request, function(results, status) {
         console.log(results);
