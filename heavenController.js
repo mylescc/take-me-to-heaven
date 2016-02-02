@@ -5,6 +5,7 @@
     this.views = ['splash', 'geoquery', 'postcode', 'loadingAPI', 'result'];
     this.currentViewIndex = 0;
     this.currentView = this.views[this.currentViewIndex];
+    this.soundEnabled = false;
 
     function init() {
       if ("geolocation" in navigator) {
