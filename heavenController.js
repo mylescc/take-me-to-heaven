@@ -6,7 +6,7 @@
     this.currentViewIndex = 0;
     this.currentView = this.views[this.currentViewIndex];
     this.soundEnabled = false;
-    var directionService;
+    var directionService, placesService;
 
     function init() {
       if ("geolocation" in navigator) {
@@ -26,25 +26,40 @@
     };
 
     this.queryAPI = function(lat, lng, postcode) {
-      if (directionService === undefined) {
-        directionService = new google.maps.DirectionsService();
-      }
       var origin = new google.maps.LatLng(lat, lng);
-      var request = {
-        origin: origin,
-        destination: 'Wetherspoons',
-        travelMode: google.maps.TravelMode.TRANSIT,
-        provideRouteAlternatives: false,
-        region: 'GB'
+      if (placesService === undefined) {
+        placesService = new google.maps.places.PlacesService(document.getElementById('places'));
       }
-      directionService.route(request, function(results, status) {
+      var request = {
+        location: origin,
+        radius: '10000',
+        types: ['bar'],
+      }
+      placesService.nearbySearch(request, function(results, status) {
         console.log(results);
         console.log(status);
-      });
+      })
 
       $timeout(this.apiCallback, 3000);
       this.nextView(2);
     };
+
+    this.directionRouting = function(latLng) {
+      if (directionService === undefined) {
+        directionService = new google.maps.DirectionsService();
+        var request = {
+          origin: latLng,
+          destination: 'London Wetherspoons',
+          travelMode: google.maps.TravelMode.TRANSIT,
+          provideRouteAlternatives: false,
+          region: 'GB'
+        }
+        directionService.route(request, function(results, status) {
+          console.log(results);
+          console.log(status);
+        });
+      }
+    }
 
     this.apiCallback = function(result) {
       this.nextView(3);
