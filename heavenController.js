@@ -32,7 +32,7 @@
       }
       var request = {
         location: origin,
-        name: 'Wetherspoons',
+        keyword: 'Wetherspoons',
         rankBy: google.maps.places.RankBy.DISTANCE,
         types: ['bar'],
       };
