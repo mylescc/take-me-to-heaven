@@ -50,7 +50,7 @@
       }
       var request = {
         origin: latLng,
-        destination: spoons,
+        destination: spoons.geometry.location,
         travelMode: google.maps.TravelMode.TRANSIT,
         provideRouteAlternatives: false,
         region: 'GB'
