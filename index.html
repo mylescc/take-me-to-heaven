@@ -12,6 +12,12 @@
 </head>
 <body ng-app="spoons">
   <div class="container" ng-controller="HeavenController as ctrl">
+    <div class="btn-music" ng-click="ctrl.soundEnabled = !ctrl.soundEnabled">
+      <i ng-show="!ctrl.soundEnabled" class="inline fa fa-play" aria-hidden="true"></i>
+      <i ng-show="!ctrl.soundEnabled" class="fa fa-volume-off" aria-hidden="true"></i>
+      <i ng-show="ctrl.soundEnabled" class="fa fa-pause" aria-hidden="true"></i>
+      <i ng-show="ctrl.soundEnabled" class="inline fa fa-volume-up" aria-hidden="true"></i>
+    </div>
     <div ng-show='ctrl.currentView === ctrl.views[0]' class="row centralizr-io">
       <button class="btn btn-spoons col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1" ng-click="ctrl.queryGeoLocation()">
         Take me now
@@ -43,7 +49,7 @@
     <iframe ng-if="ctrl.soundEnabled"
         width="0"
         height="0"
-        src="http://www.youtube.com/embed/GHEUsGhUtgg?rel=0&autoplay=1&loop=1"
+        src="http://www.youtube.com/embed/4iJ6APKh460?rel=0&autoplay=1&loop=1"
         frameborder="0"
         allowfullscreen></iframe>
   </div>

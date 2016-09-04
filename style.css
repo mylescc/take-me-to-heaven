@@ -3,6 +3,7 @@ body {
   background: linear-gradient(135deg, #BBE7E7, #C3FECA);
   color: #370507;
   font-size: 2rem;
+  padding-top: 15px;
   padding-left: 10px;
   padding-right: 10px;
 }
@@ -19,6 +20,15 @@ a:hover {
 
 .vertical-spacing {
   height: 2vh;
+}
+
+.btn-music {
+ float: right;
+ height: 15px;
+ width: 60px;
+ top: 5px;
+ right: 0;
+ text-align: right;
 }
 
 .btn-spoons {
