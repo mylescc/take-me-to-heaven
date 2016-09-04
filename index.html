@@ -26,20 +26,17 @@
     <div ng-show='ctrl.currentView === ctrl.views[2]' class="row centralizr-io">
       <p class="horizontalify">Calculating..</p>
     </div>
-    <div ng-show='ctrl.currentView === ctrl.views[3]' class='row'>
+    <div ng-show='ctrl.currentView === ctrl.views[3]' class='row results-view'>
       <div class="horizontalify">
         <h1 class="text-center">Route to Heaven</h1>
-          <ol>
-          	<li ng-repeat='step in ctrl.spoonsRoute'>
-          	  <i ng-if="step.type === 'WALKING' && !$last" class="fa fa-blind" aria-hidden="true"></i>
-              <i ng-if="step.type === 'TRANSIT' && !$last" class="fa fa-subway" aria-hidden="true"></i>
-              <i ng-if="$last" class="fa fa-beer" aria-hidden="true"></i>
-              {{step.instructions}}
-              <i ng-if="$last" class="fa fa-beer" aria-hidden="true"></i>
-              <a ng-if="!$last" href="#" ng-click="ctrl.expandStep(step, $index)"><i class="fa fa-search" aria-hidden="true"></i></a>
-              <div ng-attr-id="{{ 'step-' + $index  }}"  ng-show="step.expanded" class="step-map-expansion"></div>
-            </li>
-          </ol>
+          <div class="text-center"  ng-repeat='step in ctrl.spoonsRoute'>
+            <i ng-if="step.type === 'WALKING' && !$last" class="fa fa-blind" aria-hidden="true"></i>
+            <i ng-if="step.type === 'TRANSIT' && !$last" class="fa fa-subway" aria-hidden="true"></i>
+            <i ng-if="$last" class="fa fa-beer" aria-hidden="true"></i>
+            {{step.instructions}}
+            <i ng-if="$last" class="fa fa-beer" aria-hidden="true"></i>
+            <img ng-if="!$last" class="step-instructions-img" ng-src="{{ ctrl.stepImageURLBuilder(step) }}" />
+          </div>
       </div>
     </div>
     <div id="places"></div>
