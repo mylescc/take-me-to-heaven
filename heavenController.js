@@ -108,38 +108,24 @@
       this.currentView = this.views[this.currentViewIndex];
     }
 
-    this.expandStep = function(step, index) {
-      if (step.expanded) {
-        return;
-      }
-      step.expanded = true;
-      var element = document.getElementById('step-' + index);
-      var map = new google.maps.Map(element, {
-        mapTypeId: 'terrain',
-        center: step.lat_lngs[Math.floor(step.lat_lngs.length / 2)],
-        disableDefaultUI: true
-      });
-      var path = new google.maps.Polyline({
-        path: step.lat_lngs,
-        geodesic: true,
-        strokeColor: '#FF0000',
-        strokeOpacity: 1.0,
-        strokeWeight: 2
-      });
-      var bounds = new google.maps.LatLngBounds();
-      _.each(step.lat_lngs, function(latLng) {
-        bounds.extend(latLng);
-      });
+      this.stepImageURLBuilder = function(step) {
+      var basePath = "http://maps.googleapis.com/maps/api/staticmap?size=400x400";
+      var extraProps = "&key=AIzaSyBKDfKPs1uIfmRlZjCyHpTIFhD26mcazz8"
 
-      path.setMap(map);
-      google.maps.event.addListenerOnce(map, 'idle', function (){
-        map.fitBounds(bounds);
-        element.scrollIntoView();
-      });
+      var lines = _.reduce(step.lat_lngs, function(string, coordz, index) {
+        var result = string + coordz.lat().toString() + "," + coordz.lng().toString();
+        if ((step.lat_lngs.length - 1) !== index) {
+          result = result + "|";
+        }
+        return result;
+      }, "");
+
+      return basePath + "&path=" + lines + extraProps;
     }
 
     init();
   };
+
 
   HeavenController.$inject = ['$timeout','$scope'];
   angular.module('spoons').controller('HeavenController', HeavenController);
