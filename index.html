@@ -26,9 +26,9 @@
     <div ng-show='ctrl.currentView === ctrl.views[2]' class="row centralizr-io">
       <p class="horizontalify">Calculating..</p>
     </div>
-    <div ng-show='ctrl.currentView === ctrl.views[3]' class='row centralizr-io'>
+    <div ng-show='ctrl.currentView === ctrl.views[3]' class='row'>
       <div class="horizontalify">
-        <h1>Route to Heaven</h1>
+        <h1 class="text-center">Route to Heaven</h1>
           <ol>
           	<li ng-repeat='step in ctrl.spoonsRoute'>
           	  <i ng-if="step.type === 'WALKING' && !$last" class="fa fa-blind" aria-hidden="true"></i>

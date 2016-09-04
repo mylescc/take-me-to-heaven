@@ -116,6 +116,7 @@
       var element = document.getElementById('step-' + index);
       var map = new google.maps.Map(element, {
         mapTypeId: 'terrain',
+        center: step.lat_lngs[Math.floor(step.lat_lngs.length / 2)],
         disableDefaultUI: true
       });
       var path = new google.maps.Polyline({
@@ -131,7 +132,10 @@
       });
 
       path.setMap(map);
-      map.fitBounds(bounds);
+      google.maps.event.addListenerOnce(map, 'idle', function (){
+        map.fitBounds(bounds);
+        element.scrollIntoView();
+      });
     }
 
     init();
