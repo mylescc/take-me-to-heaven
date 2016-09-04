@@ -69,9 +69,7 @@
     }
 
     this.handleRoutingCallback = function(results, status) {
-      console.log(results, status);
       this.spoonsRoute = this.mapRouteToSpoons(results);
-      console.log(this.spoonsRoute);
       this.nextView(3);
       $scope.$apply();
     }.bind(this)
@@ -82,7 +80,8 @@
           case 'WALKING':
             return {
               instructions: step.instructions,
-              type: step.travel_mode
+              type: step.travel_mode,
+              lat_lngs: step.lat_lngs,
             }
           case 'TRANSIT':
             var mode = step.instructions.split(' ')[0].toLowerCase();
@@ -92,6 +91,7 @@
             return {
               instructions: 'Take the '+ shortName + ' ' + step.instructions.toLowerCase() + ' from ' + from + '. Get off at ' + to + '.',
               type: step.travel_mode,
+              lat_lngs: step.lat_lngs
             }
         }
       })
@@ -106,6 +106,32 @@
     this.nextView = function(viewIndex) {
       this.currentViewIndex = !!viewIndex ? viewIndex : this.currentViewIndex + 1;
       this.currentView = this.views[this.currentViewIndex];
+    }
+
+    this.expandStep = function(step, index) {
+      if (step.expanded) {
+        return;
+      }
+      step.expanded = true;
+      var element = document.getElementById('step-' + index);
+      var map = new google.maps.Map(element, {
+        mapTypeId: 'terrain',
+        disableDefaultUI: true
+      });
+      var path = new google.maps.Polyline({
+        path: step.lat_lngs,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+      });
+      var bounds = new google.maps.LatLngBounds();
+      _.each(step.lat_lngs, function(latLng) {
+        bounds.extend(latLng);
+      });
+
+      path.setMap(map);
+      map.fitBounds(bounds);
     }
 
     init();

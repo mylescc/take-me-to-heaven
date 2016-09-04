@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="style.css">
   <script src="app.js"></script>
   <script src="heavenController.js"></script>
+  <script src="https://use.fontawesome.com/78440e8e42.js"></script>
 </head>
 <body ng-app="spoons">
   <div class="container" ng-controller="HeavenController as ctrl">
@@ -30,7 +31,13 @@
         <h1>Route to Heaven</h1>
           <ol>
           	<li ng-repeat='step in ctrl.spoonsRoute'>
+          	  <i ng-if="step.type === 'WALKING' && !$last" class="fa fa-blind" aria-hidden="true"></i>
+              <i ng-if="step.type === 'TRANSIT' && !$last" class="fa fa-subway" aria-hidden="true"></i>
+              <i ng-if="$last" class="fa fa-beer" aria-hidden="true"></i>
               {{step.instructions}}
+              <i ng-if="$last" class="fa fa-beer" aria-hidden="true"></i>
+              <a ng-if="!$last" href="#" ng-click="ctrl.expandStep(step, $index)"><i class="fa fa-search" aria-hidden="true"></i></a>
+              <div ng-attr-id="{{ 'step-' + $index  }}"  ng-show="step.expanded" class="step-map-expansion"></div>
             </li>
           </ol>
       </div>
@@ -43,6 +50,6 @@
         frameborder="0"
         allowfullscreen></iframe>
   </div>
-  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxITWoESWAqahkIULUK0rkpLfoTTTTdw4&libraries=places"></script>
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCce7m7YhlDHzCBAN4JlNylcdUTVHpSKI&libraries=places"></script>
 </body>
 </html>
